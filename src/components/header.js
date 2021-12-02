@@ -26,6 +26,11 @@ const Header = ({ siteTitle }) => (
         >
           {siteTitle}
         </Link>
+        {'   '}
+        <Link to="/tasks"    style={{
+          color: `white`,
+          textDecoration: `none`,
+        }}>Завдання</Link>
       </h1>
     </div>
   </header>
