@@ -14,7 +14,7 @@ const Mentor = ({ data }) => {
       <h1>
         {mentor.fullName} {teenager.fullName}
       </h1>
-      <Link to="/">Go back to the homepage</Link>
+      <Link to="/">Повернутися до списку</Link>
     </Layout>
   )
 }
