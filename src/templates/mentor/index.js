@@ -7,13 +7,12 @@ import Seo from "../../components/seo"
 const Mentor = ({ data }) => {
   const mentor = data.contentfulMentor
   const teenager = mentor.teenager
+  const title = `${mentor.fullName} та ${teenager.fullName}`
 
   return (
     <Layout>
-      <Seo title="Ментор" />
-      <h1>
-        {mentor.fullName} {teenager.fullName}
-      </h1>
+      <Seo title={title} />
+      <h1>{title}</h1>
       <Link to="/">Повернутися до списку</Link>
     </Layout>
   )

@@ -1,12 +1,18 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Badge, Avatar } from "antd"
+import { Link } from "gatsby"
+import slug from "slug"
+import { Badge, Avatar, Tooltip } from "antd"
 
 const TaskBadge = ({ src, count, title }) => {
   return (
-    <Badge count={count} title={title}>
-      <Avatar shape="square" size="large" src={src} />
-    </Badge>
+    <Tooltip title={`${count} - ${title}`}>
+      <Link to={`/task/${slug(title)}`}>
+        <Badge count={count} title={title}>
+          <Avatar shape="square" size="large" src={src} alt={title} />
+        </Badge>
+      </Link>
+    </Tooltip>
   )
 }
 

@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { groupTasksByFullName } from "../utils"
-import TaskBadge from "../components/task/badge"
+import TaskBadge from "../components/task"
 
 const gridCardHalfStyle = {
   width: "50%",
@@ -36,8 +36,8 @@ const IndexPage = ({ data, location }) => {
           const doneTasksNames = Object.keys(doneTasks)
 
           return (
-            <Link to={`/${nameSlug}`} key={nameSlug}>
-              <Card style={{ marginBottom: "16px" }} hoverable={true}>
+            <Card style={{ marginBottom: "16px" }} hoverable={true}>
+              <Link to={`/${nameSlug}`} key={nameSlug}>
                 <Card.Grid style={gridCardHalfStyle} hoverable={false}>
                   <GatsbyImage image={getImage(mentor.thumbnail)} />
                   <h5 style={{ marginTop: "8px" }}>{mentor.fullName}</h5>
@@ -48,29 +48,29 @@ const IndexPage = ({ data, location }) => {
                     {mentor.teenager?.fullName}
                   </h5>
                 </Card.Grid>
-                {doneTasksNames.length > 0 && (
-                  <Card.Grid style={gridCardFullStyle} hoverable={false}>
-                    <Divider style={{ marginBottom: "24px" }}>
-                      Виконані завдання
-                    </Divider>
-                    {doneTasksNames.map(taskName => {
-                      const src = getImage(doneTasks[taskName][0].sticker)
-                        .images.fallback.src
+              </Link>
+              {doneTasksNames.length > 0 && (
+                <Card.Grid style={gridCardFullStyle} hoverable={false}>
+                  <Divider style={{ marginBottom: "24px" }}>
+                    Виконані завдання
+                  </Divider>
+                  {doneTasksNames.map(taskName => {
+                    const src = getImage(doneTasks[taskName][0].sticker).images
+                      .fallback.src
 
-                      return (
-                        <div key={taskName}>
-                          <TaskBadge
-                            title={taskName}
-                            src={src}
-                            count={doneTasks[taskName].length}
-                          />
-                        </div>
-                      )
-                    })}
-                  </Card.Grid>
-                )}
-              </Card>
-            </Link>
+                    return (
+                      <div key={taskName}>
+                        <TaskBadge
+                          title={taskName}
+                          src={src}
+                          count={doneTasks[taskName].length}
+                        />
+                      </div>
+                    )
+                  })}
+                </Card.Grid>
+              )}
+            </Card>
           )
         })}
       </p>
