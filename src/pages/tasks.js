@@ -44,7 +44,7 @@ const TasksPage = ({ data, location }) => {
 
 export const query = graphql`
   query {
-    allContentfulTask(sort: { fields: [id], order: [ASC] }) {
+    allContentfulTask(sort: { fields: [sortId], order: [ASC] }) {
       edges {
         node {
           name

@@ -15,3 +15,16 @@ export const groupTasksByFullName = tasks => {
 
   return result
 }
+export const countOneTaskByFullName = tasks => {
+  const result = {}
+
+  for (const task of tasks) {
+    const count = (result[task.mentor.fullName]?.count || 0) + 1
+    result[task.mentor.fullName] = {
+      count,
+      teenager: task.mentor.teenager.fullName,
+    }
+  }
+
+  return result
+}
