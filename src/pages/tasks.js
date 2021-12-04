@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby"
 import slug from "slug"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const TasksPage = ({ data }) => {
   const tasks = data.allContentfulTask.edges.map(({ node }) => node)
@@ -16,7 +17,8 @@ const TasksPage = ({ data }) => {
 
           return (
             <div key={nameSlug}>
-              <Link to={`/${nameSlug}`}>{task.name}</Link>
+              <GatsbyImage image={getImage(task.sticker)} />
+              <Link to={`/task/${nameSlug}`}>{task.name}</Link>
               <p>{task.description.description}</p>
             </div>
           )
@@ -34,6 +36,9 @@ export const query = graphql`
           name
           description {
             description
+          }
+          sticker {
+            gatsbyImageData(layout: CONSTRAINED, width: 186, height: 186)
           }
         }
       }

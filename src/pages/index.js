@@ -39,12 +39,12 @@ export const query = graphql`
         node {
           fullName
           thumbnail {
-            gatsbyImageData(layout: CONSTRAINED, width: 186)
+            gatsbyImageData(layout: CONSTRAINED, width: 186, height: 186)
           }
           teenager {
             fullName
             thumbnail {
-              gatsbyImageData(layout: CONSTRAINED, width: 186)
+              gatsbyImageData(layout: CONSTRAINED, width: 186, height: 186)
             }
           }
         }
