@@ -1,9 +1,9 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import TaskText from "../../components/task/text"
 
 const Task = ({ data }) => {
   const task = data.contentfulTask
@@ -14,7 +14,9 @@ const Task = ({ data }) => {
       <Seo title={task.name} description={taskDescription} />
       <h1>{task.name}</h1>
       <GatsbyImage image={getImage(task.sticker)} />
-      <pre style={{marginTop: '16px'}}>{taskDescription}</pre>
+      <br/> <br/>
+      <TaskText text={task.description.description}/>
+      <br/>  <br/>
       <Link to="/">На головну</Link>
     </Layout>
   )
@@ -25,7 +27,7 @@ export const query = graphql`
     contentfulTask(name: { eq: $name }) {
       name
       sticker {
-        gatsbyImageData(layout: CONSTRAINED, width: 400, height: 400)
+        gatsbyImageData(layout: CONSTRAINED, width: 350, height: 350)
       }
       description {
         description

@@ -2,10 +2,11 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 import { Divider } from "antd"
 import slug from "slug"
-import { Card } from "antd"
+import { Card, Row, Col } from "antd"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import TaskText from "../components/task/text"
 
 const TasksPage = ({ data, location }) => {
   const tasks = data.allContentfulTask.edges.map(({ node }) => node)
@@ -21,10 +22,12 @@ const TasksPage = ({ data, location }) => {
             <div key={nameSlug}>
               <Link to={`/task/${nameSlug}`}>
                 <Card title={task.name} hoverable>
-                  <GatsbyImage image={getImage(task.sticker)} />
-                  <p style={{ marginTop: "12px" }}>
-                    {task.description.description}
-                  </p>
+                  <Row justify="center">
+                    <Col  sm={24} md={8}>  <GatsbyImage image={getImage(task.sticker)} /></Col>
+                    <Col sm={24} md={16} style={{padding: '16px 0'}}>
+                      <TaskText text={task.description.description}/>
+                    </Col>
+                  </Row>
                 </Card>
               </Link>
               <Divider />
