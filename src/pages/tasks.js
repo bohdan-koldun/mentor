@@ -23,9 +23,12 @@ const TasksPage = ({ data, location }) => {
               <Link to={`/task/${nameSlug}`}>
                 <Card title={task.name} hoverable>
                   <Row justify="center">
-                    <Col  sm={24} md={8}>  <GatsbyImage image={getImage(task.sticker)} /></Col>
-                    <Col sm={24} md={16} style={{padding: '16px 0'}}>
-                      <TaskText text={task.description.description}/>
+                    <Col sm={24} md={8}>
+                      {" "}
+                      <GatsbyImage image={getImage(task.sticker)} />
+                    </Col>
+                    <Col sm={24} md={16} style={{ padding: "16px 0" }}>
+                      <TaskText text={task.description.description} />
                     </Col>
                   </Row>
                 </Card>

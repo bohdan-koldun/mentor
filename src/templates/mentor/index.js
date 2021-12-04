@@ -10,14 +10,13 @@ const Mentor = ({ data }) => {
   const teenager = mentor.teenager
   const title = `${mentor.fullName} та ${teenager.fullName}`
 
-  const doneTasks = data.allContentfulMentorTask.edges.map(({node}) => node)
-
+  const doneTasks = data.allContentfulMentorTask.edges.map(({ node }) => node)
 
   return (
     <Layout>
       <Seo title={title} />
       <h1>{title}</h1>
-      <DoneTaskList tasks={doneTasks}/>
+      <DoneTaskList tasks={doneTasks} />
 
       <Link to="/">Повернутися до списку</Link>
     </Layout>
@@ -39,7 +38,7 @@ export const query = graphql`
       }
     }
     allContentfulMentorTask(
-         filter: {  mentor: { fullName: {eq: $fullName} } }
+      filter: { mentor: { fullName: { eq: $fullName } } }
       sort: { fields: [date], order: ASC }
     ) {
       edges {

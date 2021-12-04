@@ -14,9 +14,9 @@ const Task = ({ data }) => {
       <Seo title={task.name} description={taskDescription} />
       <h1>{task.name}</h1>
       <GatsbyImage image={getImage(task.sticker)} />
-      <br/> <br/>
-      <TaskText text={task.description.description}/>
-      <br/>  <br/>
+      <br /> <br />
+      <TaskText text={task.description.description} />
+      <br /> <br />
       <Link to="/">На головну</Link>
     </Layout>
   )

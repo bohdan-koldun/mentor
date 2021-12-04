@@ -39,11 +39,17 @@ const IndexPage = ({ data, location }) => {
             <Card style={{ marginBottom: "16px" }} hoverable={true}>
               <Link to={`/${nameSlug}`} key={nameSlug}>
                 <Card.Grid style={gridCardHalfStyle} hoverable={false}>
-                  <GatsbyImage image={getImage(mentor.thumbnail)} alt={mentor.fullName} />
+                  <GatsbyImage
+                    image={getImage(mentor.thumbnail)}
+                    alt={mentor.fullName}
+                  />
                   <h5 style={{ marginTop: "8px" }}>{mentor.fullName}</h5>
                 </Card.Grid>
                 <Card.Grid style={gridCardHalfStyle} hoverable={false}>
-                  <GatsbyImage image={getImage(mentor.teenager?.thumbnail)} alt={mentor.teenager.fullName} />
+                  <GatsbyImage
+                    image={getImage(mentor.teenager?.thumbnail)}
+                    alt={mentor.teenager.fullName}
+                  />
                   <h5 style={{ marginTop: "8px" }}>
                     {mentor.teenager?.fullName}
                   </h5>
