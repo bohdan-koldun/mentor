@@ -1,18 +1,30 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
 import slug from "slug"
-import { Card } from "antd"
+import { Card, Divider } from "antd"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { groupTasksByFullName } from "../utils"
+import TaskBadge from "../components/task/badge"
 
-const gridStyle = {
+const gridCardHalfStyle = {
   width: "50%",
   textAlign: "center",
+  boxShadow: "none",
+}
+
+const gridCardFullStyle = {
+  width: "100%",
+  textAlign: "center",
+  boxShadow: "none",
 }
 
 const IndexPage = ({ data, location }) => {
   const mentors = data.allContentfulMentor.edges.map(({ node }) => node)
+  const mentorsTasks = groupTasksByFullName(
+    data.allContentfulMentorTask.edges.map(({ node }) => node)
+  )
 
   return (
     <Layout location={location}>
@@ -20,19 +32,43 @@ const IndexPage = ({ data, location }) => {
       <p style={{ display: "flex", flexDirection: "column" }}>
         {mentors.map(mentor => {
           const nameSlug = slug(mentor.fullName)
+          const doneTasks = mentorsTasks[mentor.fullName] || {}
+          const doneTasksNames = Object.keys(doneTasks)
 
-          console.log(getImage(mentor.teenager?.thumbnail))
           return (
             <Link to={`/${nameSlug}`} key={nameSlug}>
-              <Card style={{ marginBottom: "16px" }}>
-                <Card.Grid style={gridStyle}>
+              <Card style={{ marginBottom: "16px" }} hoverable={true}>
+                <Card.Grid style={gridCardHalfStyle} hoverable={false}>
                   <GatsbyImage image={getImage(mentor.thumbnail)} />
-                  <p>{mentor.fullName}</p>
+                  <h5 style={{ marginTop: "8px" }}>{mentor.fullName}</h5>
                 </Card.Grid>
-                <Card.Grid style={gridStyle} title="Card title">
+                <Card.Grid style={gridCardHalfStyle} hoverable={false}>
                   <GatsbyImage image={getImage(mentor.teenager?.thumbnail)} />
-                  <p>{mentor.teenager?.fullName}</p>
+                  <h5 style={{ marginTop: "8px" }}>
+                    {mentor.teenager?.fullName}
+                  </h5>
                 </Card.Grid>
+                {doneTasksNames.length > 0 && (
+                  <Card.Grid style={gridCardFullStyle} hoverable={false}>
+                    <Divider style={{ marginBottom: "24px" }}>
+                      Виконані завдання
+                    </Divider>
+                    {doneTasksNames.map(taskName => {
+                      const src = getImage(doneTasks[taskName][0].sticker)
+                        .images.fallback.src
+
+                      return (
+                        <div key={taskName}>
+                          <TaskBadge
+                            title={taskName}
+                            src={src}
+                            count={doneTasks[taskName].length}
+                          />
+                        </div>
+                      )
+                    })}
+                  </Card.Grid>
+                )}
               </Card>
             </Link>
           )
@@ -55,6 +91,21 @@ export const query = graphql`
             fullName
             thumbnail {
               gatsbyImageData(layout: CONSTRAINED, width: 186, height: 186)
+            }
+          }
+        }
+      }
+    }
+    allContentfulMentorTask {
+      edges {
+        node {
+          mentor {
+            fullName
+          }
+          task {
+            name
+            sticker {
+              gatsbyImageData(layout: FIXED, width: 100, height: 100)
             }
           }
         }
