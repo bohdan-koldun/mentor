@@ -5,11 +5,11 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
   const mentors = data.allContentfulMentor.edges.map(({ node }) => node)
 
   return (
-    <Layout>
+    <Layout location={location}>
       <Seo title="Ментор" />
       <p style={{ display: "flex", flexDirection: "column" }}>
         {mentors.map(mentor => {

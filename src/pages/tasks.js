@@ -1,15 +1,16 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
+import { Divider } from "antd"
 import slug from "slug"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-const TasksPage = ({ data }) => {
+const TasksPage = ({ data, location }) => {
   const tasks = data.allContentfulTask.edges.map(({ node }) => node)
 
   return (
-    <Layout>
+    <Layout location={location}>
       <Seo title="Завдання" />
       <div style={{ display: "flex", flexDirection: "column" }}>
         {tasks.map(task => {
@@ -17,6 +18,7 @@ const TasksPage = ({ data }) => {
 
           return (
             <div key={nameSlug}>
+              <Divider>{task.name}</Divider>
               <GatsbyImage image={getImage(task.sticker)} />
               <Link to={`/task/${nameSlug}`}>{task.name}</Link>
               <p>{task.description.description}</p>
