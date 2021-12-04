@@ -14,7 +14,7 @@ const Task = ({ data }) => {
       <Seo title={task.name} description={taskDescription} />
       <h1>{task.name}</h1>
       <GatsbyImage image={getImage(task.sticker)} />
-      <pre>{taskDescription}</pre>
+      <pre style={{marginTop: '16px'}}>{taskDescription}</pre>
       <Link to="/">На головну</Link>
     </Layout>
   )
@@ -25,7 +25,7 @@ export const query = graphql`
     contentfulTask(name: { eq: $name }) {
       name
       sticker {
-        gatsbyImageData(layout: CONSTRAINED, width: 512, height: 512)
+        gatsbyImageData(layout: CONSTRAINED, width: 400, height: 400)
       }
       description {
         description
