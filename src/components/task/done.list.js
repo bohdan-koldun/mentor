@@ -29,7 +29,8 @@ const DoneTaskList = ({ tasks }) => {
               }
               description={description.join(". ")}
             />
-            {!!srcPhoto && <Image height={50} src={srcPhoto} />}
+            <br/>
+            {!!srcPhoto && <Image width={50} src={srcPhoto} />}
           </List.Item>
         )
       }}

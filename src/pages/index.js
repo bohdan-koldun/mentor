@@ -58,7 +58,7 @@ const IndexPage = ({ data, location }) => {
               {doneTasksNames.length > 0 && (
                 <Card.Grid style={gridCardFullStyle} hoverable={false}>
                   <Divider style={{ marginBottom: "24px" }}>
-                    Виконані завдання
+                    Зароблені стікери
                   </Divider>
                   {doneTasksNames.map(taskName => {
                     const src = getImage(doneTasks[taskName][0].sticker).images
