@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { groupTasksByFullName } from "../utils"
-import TaskBadge from "../components/task"
+import TaskBadge from "../components/task/badge"
 
 const gridCardHalfStyle = {
   width: "50%",
@@ -39,11 +39,11 @@ const IndexPage = ({ data, location }) => {
             <Card style={{ marginBottom: "16px" }} hoverable={true}>
               <Link to={`/${nameSlug}`} key={nameSlug}>
                 <Card.Grid style={gridCardHalfStyle} hoverable={false}>
-                  <GatsbyImage image={getImage(mentor.thumbnail)} />
+                  <GatsbyImage image={getImage(mentor.thumbnail)} alt={mentor.fullName} />
                   <h5 style={{ marginTop: "8px" }}>{mentor.fullName}</h5>
                 </Card.Grid>
                 <Card.Grid style={gridCardHalfStyle} hoverable={false}>
-                  <GatsbyImage image={getImage(mentor.teenager?.thumbnail)} />
+                  <GatsbyImage image={getImage(mentor.teenager?.thumbnail)} alt={mentor.teenager.fullName} />
                   <h5 style={{ marginTop: "8px" }}>
                     {mentor.teenager?.fullName}
                   </h5>
