@@ -18,7 +18,7 @@ const Task = ({ data }) => {
   const tableData = Object.keys(mentorsTasks).map(key => ({
     name: `${key} та ${mentorsTasks[key].teenager}`,
     count: mentorsTasks[key].count,
-  }))
+  })).sort((a, b) => b.count - a.count)
 
   const columns = [
     {
