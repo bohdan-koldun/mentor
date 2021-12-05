@@ -33,7 +33,7 @@ const IndexPage = ({ data, location }) => {
         {mentors.map(mentor => {
           const nameSlug = slug(mentor.fullName)
           const doneTasks = mentorsTasks[mentor.fullName] || {}
-          const doneTasksNames = Object.keys(doneTasks)
+          const doneTasksNames = Object.keys(doneTasks).sort()
 
           return (
             <Card style={{ marginBottom: "16px" }} hoverable={true}>
@@ -60,12 +60,13 @@ const IndexPage = ({ data, location }) => {
                   <Divider style={{ marginBottom: "24px" }}>
                     Зароблені стікери
                   </Divider>
+                  <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center'}}>
                   {doneTasksNames.map(taskName => {
                     const src = getImage(doneTasks[taskName][0].sticker).images
                       .fallback.src
 
                     return (
-                      <div key={taskName}>
+                      <div key={taskName} style={{ margin: '4px 14px'}}>
                         <TaskBadge
                           title={taskName}
                           src={src}
@@ -74,6 +75,7 @@ const IndexPage = ({ data, location }) => {
                       </div>
                     )
                   })}
+                    </div>
                 </Card.Grid>
               )}
             </Card>

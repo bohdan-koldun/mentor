@@ -39,7 +39,7 @@ export const query = graphql`
     }
     allContentfulMentorTask(
       filter: { mentor: { fullName: { eq: $fullName } } }
-      sort: { fields: [date], order: ASC }
+      sort: { fields: [date], order: DESC }
     ) {
       edges {
         node {
