@@ -60,13 +60,13 @@ const IndexPage = ({ data, location }) => {
                   <Divider style={{ marginBottom: "24px" }}>
                     Зароблені стікери
                   </Divider>
-                  <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                  <div style={{display:'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
                   {doneTasksNames.map(taskName => {
                     const src = getImage(doneTasks[taskName][0].sticker).images
                       .fallback.src
 
                     return (
-                      <div key={taskName} style={{ margin: '4px 14px'}}>
+                      <div key={taskName} style={{ margin: '8px 14px 16px'}}>
                         <TaskBadge
                           title={taskName}
                           src={src}
