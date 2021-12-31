@@ -1,0 +1,59 @@
+name: Deploy to Hosting Ukraine
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+  schedule:
+    - cron:  '15 0 * * *'
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: send the start buid message 
+      uses: appleboy/telegram-action@master
+      with:
+       to: ${{ secrets.TELEGRAM_CHAT_ID }}
+       token: ${{ secrets.TELEGRAM_TOKEN }}
+       args: Обновлення сайту стартонуло⏳ Заварюй чай та тремти, щоб все було успішно🥸☕️ [${{ github.event_name }}]
+      
+    - name: Install packages
+      run: yarn install --force
+    
+    - name: Send install fail notificatin
+      if: ${{ failure() }}
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        args: Помилка! Скріпти сайту не скачались. Де доктор, Вася 💊👀
+    - name: Build gatsby
+      run: yarn build
+      env:
+          CONTENTFUL_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
+          CONTENTFUL_SPACE_TOKEN: ${{secrets.CONTENTFUL_SPACE_TOKEN}}
+
+    - name: Send build fail notificatin
+      if: ${{ failure() }}
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        args: Помилка! Скріпти сайту не збудувалися. Шо робить, Вася 😵👀
+      
+    - name: Change Directory
+      run: cd ..
+      
+    - name: Upload to FTP
+      run: echo -e "put -R public\nrm -rf www_tmp\nrename www www_tmp\nrename public www\nrm -rf www_tmp" | ncftp -u ${{secrets.FTP_USER}} -p ${{secrets.FTP_PASSWORD}} sashagol.ftp.tools
+      
+    - name: send the end build message 
+      uses: appleboy/telegram-action@master
+      with:
+       to: ${{ secrets.TELEGRAM_CHAT_ID }}
+       token: ${{ secrets.TELEGRAM_TOKEN }}
+       args: Успішно🎆 Можна зітхнути спокійно, з’їсти ще цих м’яких французьких булок та випити чаю.☕
